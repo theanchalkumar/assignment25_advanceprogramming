@@ -1,0 +1,130 @@
+1.
+
+
+def repeat(lst,n):
+    return lst * n
+
+def add(lst, x):
+    lst.append(x)
+    return lst
+
+def remove(lst,m,n):
+    del lst[m:n+1]
+    return lst
+
+def concat(lst,lst2):
+    return lst + lst2
+    
+
+lst = [1,2,3,4]
+lst = repeat(lst,3)
+print('Repeating list', lst)
+lst = add(lst,8)
+print("adding at the end of list",lst)
+lst = remove(lst,1,8)
+print('Removing some elements form list',lst)
+lst = concat(lst,[6,8])
+print('concating list',lst)
+
+
+2.
+
+
+def guess_score(code, guesser):
+    
+    dict = {'black' : 0, 'white' : 0}
+    BlackCnt = 0
+    whiteCnt = 0
+
+    if len(code) != len(guesser):
+        print('code and guesser are of not of equal lenth')
+        return False
+
+    code = [code[x] for x in range(len(code))]    # converting string of numbers in to list
+  
+    # find the black match
+    for i in range(len(guesser)):
+        if code[i] == guesser[i]:                # matching the index for black match
+            code[i] = '-'                        # if found replacing the match with '-'
+            BlackCnt += 1 
+            dict['black'] = BlackCnt             # updating the black count
+            
+    #for white matches
+    for i in range(len(guesser)):
+        for j in range(len(code)):               # for white match they can be in any index, traverse through the string
+            if guesser[i] == code[j]:
+                code[j] = '-'                    # if found replace with '-'
+                whiteCnt += 1
+                dict['white'] = whiteCnt         # update the count 
+
+    return dict
+
+
+3.
+
+
+def two_product(lst, n):
+    lst = sorted(lst,reverse = True)
+    divisors = []
+    for i in range(len(lst)):
+        for j in range(i+1,len(lst)):
+            if lst[i]*lst[j] == n:
+                divisors.append(lst[i])            
+                divisors.append(lst[j])
+                break            
+    return sorted(divisors)
+
+
+
+4.
+
+
+
+import datetime
+def sort_dates(d, sort):
+    if sort == 'ASC':
+        print("Sorting in Ascending order")
+        return sorted(d, key=lambda x: datetime.datetime.strptime(x, '%d-%m-%Y_%H:%M'), reverse = False)
+    elif sort == 'DSC':
+        print("Sorting in Descending order")
+        return sorted(d, key=lambda x: datetime.datetime.strptime(x, '%d-%m-%Y_%H:%M'), reverse = True)
+    else:
+        print("Provide right sorting order")
+
+
+5.
+
+
+def findVowelInWord(word):
+    vowel = 'aeiou'
+    lstvowstr = ''    
+    for i in range(len(word)):        
+        if word[i] in vowel:
+            lstvowstr = lstvowstr + word[i]
+    return ''.join(set(lstvowstr)) # find the unique vowels in the word
+
+
+def same_vowel_group(lst):
+    vowel = 'aeiou'
+    resultlst = []
+    test = findVowelInWord(lst[0])   # find the vowels in each word of the list     
+    resultlst.append(lst[0]) # append the first word in to list
+    for i in range(1,len(lst)):
+        vowWord = findVowelInWord(lst[i])
+        if test == vowWord: # check the vowel of each word with first word in the list
+            resultlst.append(lst[i])
+    return resultlst
+
+
+
+6.
+
+
+
+from math import gcd
+def lcm_of_list(lst):
+    a = [100, 200, 150]   
+    lcm = 1
+    for i in lst:
+        lcm = lcm*i//gcd(lcm, i)
+    return lcm
